@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Adopción - Patitas Unidas</title>
+  <link rel="stylesheet" href="Web.css" />
+  <link rel="stylesheet" href="Formulario.css" />
+  <link rel="shortcut icon" href="Fotos/port.jpg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <h1 style="font-size: 60px;">🐾 Adopta con <b>Patitas Unidas</b> 🐾</h1>
+      <p style="font-size: 25px;">Dale un hogar y una segunda oportunidad a un amigo peludo.</p>
+    </div>
+  </header>
+
+  <nav>
+    <ul class="menu">
+      <li><a href="Web.html">Inicio</a></li>
+      <li><a href="Somos.html">¿Quiénes somos?</a></li>
+      <li><a href="adopcion.html" class="active">Adopción</a></li>
+      <li><a href="rescate.html">Rescate</a></li>
+      <li><a href="donaciones.html">donaciones</a></li>
+      <li><a href="voluntariado.html">voluntariado</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="animales-disponibles" class="section">
+      <h2 class="section-title">Animales disponibles para adopción</h2>
+
+      <div class="animal-card">
+        <img src="Fotos/Manny.jpg" alt="Manny, perro mestizo" />
+        <div>
+          <h3>Manny</h3>
+          <p>Perro mestizo, 3 años, muy amigable y activo. Ideal para familias con niños.</p>
+          <button class="unirme" onclick="mostrarFormulario('Manny', 'Fotos/Manny.jpg')">Solicitar adopción</button>
+        </div>
+      </div>
+
+      <div class="animal-card">
+        <img src="Fotos/annie.jpg" alt="Annie, gata siamesa" />
+        <div>
+          <h3>Annie</h3>
+          <p>Gata siamesa, 2 años, tranquila y cariñosa. Perfecta para departamentos o casas pequeñas.</p>
+          <button class="unirme" onclick="mostrarFormulario('Annie', 'Fotos/annie.jpg')">Solicitar adopción</button>
+        </div>
+      </div>
+
+      <div class="animal-card">
+        <img src="Fotos/tommy.jpg" alt="Tommy, perro labrador" />
+        <div>
+          <h3>Tommy</h3>
+          <p>Perro labrador, 4 años, activo y muy leal. Requiere espacio para correr y jugar.</p>
+          <button class="unirme" onclick="mostrarFormulario('Tommy', 'Fotos/tommy.jpg')">Solicitar adopción</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="formulario-contenedor" class="section" style="display:none;">
+      <h2 class="section-title">Formulario de solicitud de adopción</h2>
+
+      <div id="info-actividad">
+        <img id="animal-foto" src="" alt="Foto del animal" />
+        <h3 id="animal-nombre"></h3>
+      </div>
+
+      <form id="adoptionForm">
+        <input type="hidden" id="animalName" name="animalName" />
+
+        <label for="nombre">Nombre completo:</label>
+        <input type="text" id="nombre" name="nombre" required />
+
+        <label for="telefono">Teléfono:</label>
+        <input type="tel" id="telefono" name="telefono" required />
+
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required />
+
+        <label for="mensaje">¿Por qué quieres adoptar a este animal?</label>
+        <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+
+        <button type="submit">Enviar solicitud</button>
+        <button type="button" onclick="ocultarFormulario()">Cancelar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Patitas Unidas. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function mostrarFormulario(animal, foto) {
+      document.getElementById('animalName').value = animal;
+      document.getElementById('animal-nombre').textContent = animal;
+      document.getElementById('animal-foto').src = foto;
+      document.getElementById('formulario-contenedor').style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function ocultarFormulario() {
+      document.getElementById('formulario-contenedor').style.display = 'none';
+    }
+
+    document.getElementById('adoptionForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      alert('Gracias por tu interés en adoptar a ' + document.getElementById('animalName').value + '. Nos pondremos en contacto contigo pronto.');
+      this.reset();
+      ocultarFormulario();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Donaciones - Patitas Unidas</title>
+  <link rel="stylesheet" href="Web.css" />
+  <link rel="stylesheet" href="Formulario.css" />
+  <link rel="shortcut icon" href="Fotos/port.jpg" />
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    #top-donaciones {
+      margin-top: 50px;
+      background: #fff8f2;
+      padding: 40px 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.05);
+    }
+
+    .tabla-responsive {
+      overflow-x: auto;
+    }
+
+    .tabla-donaciones {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      font-size: 16px;
+      background-color: #fff;
+    }
+
+    .tabla-donaciones thead {
+      background-color: #ffccbc;
+    }
+
+    .tabla-donaciones th,
+    .tabla-donaciones td {
+      padding: 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .tabla-donaciones tbody tr:hover {
+      background-color: #fbe9e7;
+    }
+
+    .tabla-donaciones th {
+      color: #bf360c;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="hero-content">
+      <h1 style="font-size: 60px;">❤️ Dona a una Fundación Aliada 🐾</h1>
+      <p style="font-size: 25px;">Tu apoyo cambia vidas. Elige una fundación para ayudar.</p>
+    </div>
+  </header>
+
+  <nav>
+    <ul class="menu">
+      <li><a href="Web.html">Inicio</a></li>
+      <li><a href="Somos.html">¿Quiénes somos?</a></li>
+      <li><a href="adopcion.html" class="active">Adopción</a></li>
+      <li><a href="rescate.html">Rescate</a></li>
+      <li><a href="donaciones.html">donaciones</a></li>
+      <li><a href="voluntariado.html">voluntariado</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section id="top-donaciones" class="section">
+      <h2 class="section-title">🏆 Top Donadores del Mes 🔥</h2>
+      <div class="tabla-responsive">
+          <table class="tabla-donaciones">
+              <thead>
+                  <tr>
+                      <th>#</th>
+                      <th>Nombre</th>
+                      <th>Monto Donado</th>
+                      <th>Mensaje</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>1</td>
+                      <td>Armando Casas</td>
+                      <td>$300.000</td>
+                      <td>“Por todos los peluditos sin hogar 🐾”</td>
+                  </tr>
+                  <tr>
+                      <td>2</td>
+                      <td>Debora Niño</td>
+                      <td>$250.000</td>
+                      <td>“Gracias por su hermosa labor.”</td>
+                  </tr>
+                  <tr>
+                      <td>3</td>
+                      <td>Susana Oria</td>
+                      <td>$200.000</td>
+                      <td>“Topito me cambió la vida 🐱💖”</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+    </section>
+
+    <h2 class="section-title">Fundaciones disponibles para donar</h2>
+
+    <!-- Fundación 1 -->
+    <div class="animal-card">
+      <img src="Fotos/hm.jpg" alt="Fundación Huellitas de Amor" />
+      <div class="fundacion-info">
+        <h3>Huellitas de Amor</h3>
+        <p><strong>Ubicación:</strong> Neiva, Huila</p>
+        <p>Rescata animales de la calle y les brinda hogar temporal.</p>
+        <button class="unirme" onclick="mostrarFormulario('Huellitas de Amor', 'Fotos/hm.jpg')">Donar a esta fundación</button>
+      </div>
+    </div>
+
+    <!-- Fundación 2 -->
+    <div class="animal-card">
+      <img src="Fotos/GP.jpg" alt="Fundación Garras y Patas" />
+      <div class="fundacion-info">
+        <h3>Garras y Patas</h3>
+        <p><strong>Ubicación:</strong> Bogotá, Colombia</p>
+        <p>Especializada en rescate de perros ancianos y discapacitados.</p>
+        <button class="unirme" onclick="mostrarFormulario('Garras y Patas', 'Fotos/GP.jpg')">Donar a esta fundación</button>
+      </div>
+    </div>
+
+    <!-- Fundación 3 -->
+    <div class="animal-card">
+      <img src="Fotos/PF.jpg" alt="Fundación Peluditos Felices" />
+      <div class="fundacion-info">
+        <h3>Peluditos Felices</h3>
+        <p><strong>Ubicación:</strong> Medellín, Antioquia</p>
+        <p>Cuida, esteriliza y promueve adopciones responsables.</p>
+        <button class="unirme" onclick="mostrarFormulario('Peluditos Felices', 'Fotos/PF.jpg')">Donar a esta fundación</button>
+      </div>
+    </div>
+
+    <section id="formulario-contenedor" class="section" style="display:none;">
+      <h2 class="section-title">Formulario de Donación</h2>
+
+      <!-- Fundación seleccionada -->
+      <div id="info-actividad">
+        <img id="fundacion-logo" src="" alt="Logo de la fundación" />
+        <h3 id="fundacion-nombre"></h3>
+      </div>
+
+      <form id="donationForm">
+       <input type="hidden" id="fundacionNombre" name="fundacionNombre" />
+
+        <label for="donante-nombre">Nombre completo:</label>
+        <input type="text" id="donante-nombre" name="donanteNombre" required />
+
+        <label for="donante-email">Correo electrónico:</label>
+        <input type="email" id="donante-email" name="donanteEmail" required />
+
+        <label for="monto">Monto a donar (USD):</label>
+        <input type="number" id="monto" name="monto" min="1" step="any" required />
+
+        <label for="metodo-pago">Método de pago:</label>
+        <select id="metodo-pago" name="metodoPago" required>
+          <option value="">-- Selecciona --</option>
+          <option value="tarjeta">Tarjeta de crédito/débito</option>
+          <option value="paypal">PayPal</option>
+          <option value="transferencia">Transferencia bancaria</option>
+        </select>
+
+        <button type="submit">Donar</button>
+        <button type="button" onclick="ocultarFormulario()">Cancelar</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Patitas Unidas. Todos los derechos reservados.</p>
+  </footer>
+
+  <script>
+    function mostrarFormulario(nombreFundacion, logoFundacion) {
+      document.getElementById('fundacionNombre').value = nombreFundacion;
+      document.getElementById('fundacion-nombre').textContent = nombreFundacion;
+      document.getElementById('fundacion-logo').src = logoFundacion;
+
+      document.getElementById('formulario-contenedor').style.display = 'block';
+      window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+    }
+
+    function ocultarFormulario() {
+      document.getElementById('formulario-contenedor').style.display = 'none';
+    }
+
+    document.getElementById('donationForm').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const fundacion = document.getElementById('fundacionNombre').value;
+      const nombre = document.getElementById('donante-nombre').value;
+      const monto = document.getElementById('monto').value;
+      alert(`¡Gracias, ${nombre}, por donar $${monto} a la fundación "${fundacion}"!`);
+      this.reset();
+      ocultarFormulario();
+    });
+  </script>
+</body>
+</html>
