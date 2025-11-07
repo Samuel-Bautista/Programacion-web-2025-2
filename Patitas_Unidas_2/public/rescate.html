@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Animales Perdidos y Encontrados</title>
+  <link rel="stylesheet" href="css/web.css" />
+  <link rel="stylesheet" href="Formulario.css" />
+  <style>
+    .contenedor-principal {
+      background: rgba(255, 255, 255, 0.9);
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    }
+
+    .tabs {
+      display: flex;
+      justify-content: center;
+      margin: 30px 0 10px 0;
+      gap: 20px;
+    }
+    .tab-btn {
+      cursor: pointer;
+      padding: 12px 28px;
+      background-color: #4caf50;
+      color: white;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      transition: background-color 0.3s ease;
+    }
+    .tab-btn.active,
+    .tab-btn:hover {
+      background-color: #388e3c;
+    }
+
+    .tab-content {
+      display: none;
+      max-width: 900px;
+      margin: 0 auto 60px auto;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .post-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 20px 0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.post-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  cursor: default;
+}
+
+.post-card:hover,
+.post-card:focus {
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+.post-card img {
+  width: 100%;
+  height: 280px;
+  object-fit: cover;
+  border-bottom: 1px solid #ddd;
+}
+
+.post-body {
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  color: #333;
+}
+
+.post-title {
+  font-size: 1.7rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+}
+
+.post-subtitle {
+  font-size: 1.1rem;
+  color: #4CAF50;
+  font-weight: 600;
+  margin-bottom: 15px;
+}
+
+.post-text p {
+  margin: 8px 0;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.post-contact {
+  margin-top: 20px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #555;
+  border-top: 1px solid #eee;
+  padding-top: 12px;
+  text-align: right;
+  font-family: 'Roboto', sans-serif;
+}
+
+
+    
+.filtros {
+  margin-bottom: 25px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.filtros label {
+  font-weight: 700;
+  color: #33691e;
+  margin-right: 6px;
+}
+.filtros select {
+  padding: 9px 12px;
+  border-radius: 8px;
+  border: 1.7px solid #a5d6a7;
+  font-size: 1rem;
+  color: #2e7d32;
+  cursor: pointer;
+  min-width: 150px;
+  transition: border-color 0.3s ease;
+}
+.filtros select:hover,
+.filtros select:focus {
+  border-color: #558b2f;
+  outline: none;
+}
+
+.formulario-contenedor {
+  background: rgba(255,255,255,0.95);
+  padding: 30px 30px;
+  border-radius: 14px;
+  box-shadow: 0 8px 22px rgba(0,0,0,0.12);
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+  font-family: 'Roboto', sans-serif;
+  display: none;
+}
+.formulario-contenedor.active {
+  display: block;
+}
+.formulario-contenedor h2 {
+  font-size: 2.2rem;
+  margin-bottom: 25px;
+  color: #2a2a2a;
+  text-align: center;
+  font-weight: 700;
+}
+.formulario-contenedor label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: #333;
+}
+.formulario-contenedor input,
+.formulario-contenedor textarea,
+.formulario-contenedor select {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 18px;
+  border-radius: 12px;
+  border: 2px solid #ccc;
+  font-size: 1.1rem;
+  transition: border-color 0.3s ease;
+  font-family: 'Roboto', sans-serif;
+}
+.formulario-contenedor input:focus,
+.formulario-contenedor textarea:focus,
+.formulario-contenedor select:focus {
+  border-color: #4caf50;
+  outline: none;
+}
+.formulario-contenedor textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+.formulario-contenedor button {
+  width: 100%;
+  background-color: #4caf50;
+  border: none;
+  padding: 16px;
+  border-radius: 14px;
+  color: white;
+  font-size: 1.15rem;
+  cursor: pointer;
+  font-weight: 700;
+  transition: background-color 0.3s ease;
+}
+.formulario-contenedor button:hover {
+  background-color: #388e3c;
+}
+</style>
+</head>
+<body>
+
+  <nav>
+        <div class="nav-left"></div> 
+        <ul class="menu">
+            <li><a href="index.html">Inicio</a></li>
+            <li><a href="Somos.html">¿Quiénes somos?</a></li>
+            <li><a href="/adopcion" class="active">Adopción</a></li>
+            
+            <li><a href="donaciones.html">donaciones</a></li>
+            <li><a href="/voluntariado">voluntariado</a></li>
+        </ul>
+        
+    </nav>
+
+  <div class="contenedor-principal">
+    
+    
+  <h1 style="text-align:center; margin: 40px 0; font-family: 'Roboto', sans-serif;">Animales Perdidos y Encontrados</h1>
+
+  <div class="tabs" role="tablist" aria-label="Sección de animales perdidos y encontrados">
+    <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="perdidos" id="tab-perdidos">Perdidos</button>
+    <button class="tab-btn" role="tab" aria-selected="false" aria-controls="encontrados" id="tab-encontrados">Encontrados</button>
+  </div>
+
+
+  <section id="perdidos" class="tab-content active" role="tabpanel" aria-labelledby="tab-perdidos">
+
+    <button class="unirme" id="mostrar-form-perdido">📢 Publicar perro perdido</button>
+
+    <form id="form-publicar-perdido" class="formulario-contenedor" aria-label="Formulario para publicar animal perdido">
+      <h2>Publicar Perro Perdido</h2>
+
+      <label for="foto-perdido">Foto del animal</label>
+      <input type="file" id="foto-perdido" name="foto-perdido" accept="image/*" required />
+
+      <label for="tipo-perdido">Tipo de animal</label>
+      <select id="tipo-perdido" name="tipo-perdido" required>
+        <option value="">Seleccione</option>
+        <option value="perro">Perro</option>
+        <option value="gato">Gato</option>
+        <option value="otro">Otro</option>
+      </select>
+
+      <label for="raza-perdido">Raza aproximada</label>
+      <input type="text" id="raza-perdido" name="raza-perdido" placeholder="Ejemplo: Labrador Retriever" />
+
+      <label for="color-tamano-perdido">Color y tamaño</label>
+      <input type="text" id="color-tamano-perdido" name="color-tamano-perdido" placeholder="Ejemplo: Marrón claro, tamaño mediano" />
+
+      <label for="descripcion-fisica-perdido">Descripción física (marcas, collar, chip, etc.)</label>
+      <textarea id="descripcion-fisica-perdido" name="descripcion-fisica-perdido" placeholder="Ejemplo: Collar rojo con placa, cicatriz en pata derecha"></textarea>
+
+      <label for="ultima-ubicacion-perdido">Última ubicación relacionada</label>
+      <input type="text" id="ultima-ubicacion-perdido" name="ultima-ubicacion-perdido" placeholder="Ejemplo: Parque Central, Ciudad" />
+
+      <label for="fecha-perdido">Fecha en que se perdió</label>
+      <input type="date" id="fecha-perdido" name="fecha-perdido" required />
+
+      <label for="estado-perdido">Estado del animal</label>
+      <select id="estado-perdido" name="estado-perdido" required>
+        <option value="">Seleccione</option>
+        <option value="herido">Herido</option>
+        <option value="asustado">Asustado</option>
+        <option value="amigable">Amigable</option>
+        <option value="desconocido">Desconocido</option>
+      </select>
+
+      <label for="contacto-perdido">Contacto de la persona que publica</label>
+      <input type="text" id="contacto-perdido" name="contacto-perdido" placeholder="Email o teléfono" required />
+
+      <hr style="margin: 20px 0;" />
+
+      <label for="nombre-animal-perdido">Nombre del animal (si se conoce)</label>
+      <input type="text" id="nombre-animal-perdido" name="nombre-animal-perdido" />
+
+      <label for="circunstancias-perdido">Circunstancias de la pérdida</label>
+      <textarea id="circunstancias-perdido" name="circunstancias-perdido" placeholder="Ejemplo: Se escapó por la puerta del patio el 10 de octubre"></textarea>
+
+      <label for="recompensa-perdido">Recompensa (si hay)</label>
+      <input type="text" id="recompensa-perdido" name="recompensa-perdido" placeholder="Ejemplo: $1000 por información" />
+
+      <label for="ultima-vez-visto-perdido">Última vez visto por el dueño</label>
+      <input type="text" id="ultima-vez-visto-perdido" name="ultima-vez-visto-perdido" placeholder="Ejemplo: 12 de octubre de 2025" />
+
+      <label for="personalidad-perdido">Personalidad / comportamiento</label>
+      <textarea id="personalidad-perdido" name="personalidad-perdido" placeholder="Ejemplo: Muere si se asusta, le gusta jugar con pelotas"></textarea>
+
+      <button type="submit">Publicar Perro Perdido</button>
+    </form>
+
+    <div class="post-list">
+
+  <article class="post-card" tabindex="0" aria-label="Post de perro perdido llamado Rocky">
+  <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=700&q=80" alt="Foto de perro perdido llamado Rocky" />
+  <div class="post-body">
+    <h2 class="post-title">Rocky</h2>
+    <div class="post-subtitle">Perro - Labrador Retriever</div>
+    <div class="post-text">
+      <p><strong>Color y tamaño:</strong> Marrón claro, tamaño mediano.</p>
+      <p><strong>Descripción física:</strong> Collar rojo con placa, cicatriz en la pata derecha.</p>
+      <p><strong>Última ubicación:</strong> Parque Central, Ciudad.</p>
+      <p><strong>Fecha pérdida:</strong> 10 de octubre de 2025</p>
+      <p><strong>Estado:</strong> Asustado pero amigable.</p>
+      <p><strong>Circunstancias de la pérdida:</strong> Se escapó por la puerta del patio.</p>
+      <p><strong>Recompensa:</strong> Sí, $1000 por información.</p>
+      <p><strong>Personalidad:</strong> Le gusta jugar con pelotas, muerde si se asusta.</p>
+    </div>
+    <div class="post-contact">Contacto: juan.perez@email.com - Tel: 123-456-7890</div>
+  </div>
+</article>
+<article class="post-card" tabindex="0" aria-label="Post de perro perdido llamado Rocky">
+  <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=700&q=80" alt="Foto de perro perdido llamado Rocky" />
+  <div class="post-body">
+    <h2 class="post-title">Rocky</h2>
+    <div class="post-subtitle">Perro - Labrador Retriever</div>
+    <div class="post-text">
+      <p><strong>Color y tamaño:</strong> Marrón claro, tamaño mediano.</p>
+      <p><strong>Descripción física:</strong> Collar rojo con placa, cicatriz en la pata derecha.</p>
+      <p><strong>Última ubicación:</strong> Parque Central, Ciudad.</p>
+      <p><strong>Fecha pérdida:</strong> 10 de octubre de 2025</p>
+      <p><strong>Estado:</strong> Asustado pero amigable.</p>
+      <p><strong>Circunstancias de la pérdida:</strong> Se escapó por la puerta del patio.</p>
+      <p><strong>Recompensa:</strong> Sí, $1000 por información.</p>
+      <p><strong>Personalidad:</strong> Le gusta jugar con pelotas, muerde si se asusta.</p>
+    </div>
+    <div class="post-contact">Contacto: juan.perez@email.com - Tel: 123-456-7890</div>
+  </div>
+</article>
+<article class="post-card" tabindex="0" aria-label="Post de perro perdido llamado Rocky">
+  <img src="https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=700&q=80" alt="Foto de perro perdido llamado Rocky" />
+  <div class="post-body">
+    <h2 class="post-title">Rocky</h2>
+    <div class="post-subtitle">Perro - Labrador Retriever</div>
+    <div class="post-text">
+      <p><strong>Color y tamaño:</strong> Marrón claro, tamaño mediano.</p>
+      <p><strong>Descripción física:</strong> Collar rojo con placa, cicatriz en la pata derecha.</p>
+      <p><strong>Última ubicación:</strong> Parque Central, Ciudad.</p>
+      <p><strong>Fecha pérdida:</strong> 10 de octubre de 2025</p>
+      <p><strong>Estado:</strong> Asustado pero amigable.</p>
+      <p><strong>Circunstancias de la pérdida:</strong> Se escapó por la puerta del patio.</p>
+      <p><strong>Recompensa:</strong> Sí, $1000 por información.</p>
+      <p><strong>Personalidad:</strong> Le gusta jugar con pelotas, muerde si se asusta.</p>
+    </div>
+    <div class="post-contact">Contacto: juan.perez@email.com - Tel: 123-456-7890</div>
+  </div>
+</article>
+
+</div>
+
+  </section>
+
+  <section id="encontrados" class="tab-content" role="tabpanel" aria-labelledby="tab-encontrados">
+
+    <button class="unirme" id="mostrar-form-encontrado">📢 Publicar animal encontrado</button>
+
+    <form class="filtros" aria-label="Filtros para animales encontrados">
+      <label for="filtro-tipo">Tipo de animal:</label>
+      <select id="filtro-tipo" name="tipo">
+        <option value="">Todos</option>
+        <option value="perro">Perro</option>
+        <option value="gato">Gato</option>
+        <option value="otro">Otro</option>
+      </select>
+
+      <label for="filtro-raza">Raza:</label>
+      <select id="filtro-raza" name="raza">
+        <option value="">Todas</option>
+        <option value="labrador">Labrador</option>
+        <option value="pastor">Pastor Alemán</option>
+        <option value="callejero">Callejero</option>
+        
+      </select>
+      <button class="unirme" type="button" id="btn-actualizar">Actualizar</button>
+    </form>
+
+    <form id="form-publicar-encontrado" class="formulario-contenedor" aria-label="Formulario para publicar animal encontrado">
+      <h2>Publicar Animal Encontrado</h2>
+
+      <label for="foto-encontrado">Foto del animal</label>
+      <input type="file" id="foto-encontrado" name="foto-encontrado" accept="image/*" required />
+
+      <label for="tipo-encontrado">Tipo de animal</label>
+      <select id="tipo-encontrado" name="tipo-encontrado" required>
+        <option value="">Seleccione</option>
+        <option value="perro">Perro</option>
+        <option value="gato">Gato</option>
+        <option value="otro">Otro</option>
+      </select>
+
+      <label for="raza-encontrado">Raza aproximada</label>
+      <input type="text" id="raza-encontrado" name="raza-encontrado" placeholder="Ejemplo: Labrador Retriever" />
+
+      <label for="color-tamano-encontrado">Color y tamaño</label>
+      <input type="text" id="color-tamano-encontrado" name="color-tamano-encontrado" placeholder="Ejemplo: Gris oscuro, pequeño" />
+
+      <label for="descripcion-fisica-encontrado">Descripción física (marcas, collar, chip, etc.)</label>
+      <textarea id="descripcion-fisica-encontrado" name="descripcion-fisica-encontrado" placeholder="Ejemplo: Collar azul, sin chip"></textarea>
+
+      <label for="lugar-exacto-encontrado">Lugar exacto donde se encontró</label>
+      <input type="text" id="lugar-exacto-encontrado" name="lugar-exacto-encontrado" placeholder="Ejemplo: Calle 5, Barrio Centro" />
+
+      <label for="fecha-encontrado">Fecha en que se encontró</label>
+      <input type="date" id="fecha-encontrado" name="fecha-encontrado" required />
+
+      <label for="estado-encontrado">Condición al momento del hallazgo</label>
+      <select id="estado-encontrado" name="estado-encontrado" required>
+        <option value="">Seleccione</option>
+        <option value="herido">Herido</option>
+        <option value="limpio">Limpio</option>
+        <option value="desnutrido">Desnutrido</option>
+        <option value="con-collar">Con collar</option>
+        <option value="otro">Otro</option>
+      </select>
+
+      <label for="veterinaria-refugio">Si se llevó a veterinaria o refugio (lugar y contacto)</label>
+      <textarea id="veterinaria-refugio" name="veterinaria-refugio" placeholder="Ejemplo: Vet. Salud Animal, contacto: 987-654-3210"></textarea>
+
+      <label for="comportamiento-encontrado">Comportamiento con personas</label>
+      <select id="comportamiento-encontrado" name="comportamiento-encontrado" required>
+        <option value="">Seleccione</option>
+        <option value="miedoso">Miedoso</option>
+        <option value="amigable">Amigable</option>
+        <option value="desconocido">Desconocido</option>
+      </select>
+
+      <label for="cuidado-temporal">Si está temporalmente bajo cuidado de alguien</label>
+      <input type="text" id="cuidado-temporal" name="cuidado-temporal" placeholder="Ejemplo: En casa de Ana López" />
+
+      <label for="contacto-encontrado">Contacto de la persona que publica</label>
+      <input type="text" id="contacto-encontrado" name="contacto-encontrado" placeholder="Email o teléfono" required />
+
+      <button type="submit">Publicar Animal Encontrado</button>
+    </form>
+
+    <div class="post-list" id="lista-encontrados">
+      <article class="post-card" tabindex="0" aria-label="Post de gato encontrado llamado Misu">
+  <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=700&q=80" alt="Foto de gato encontrado llamado Misu" />
+  <div class="post-body">
+    <h2 class="post-title">Misu</h2>
+    <div class="post-subtitle">Gato - Siames</div>
+    <div class="post-text">
+      <p><strong>Color y tamaño:</strong> Blanco con manchas grises, tamaño pequeño.</p>
+      <p><strong>Lugar exacto donde se encontró:</strong> Calle 5, Barrio Centro.</p>
+      <p><strong>Condición al momento del hallazgo:</strong> Limpio, sin collar, parecía desnutrido.</p>
+      <p><strong>Fecha encontrada:</strong> 12 de octubre de 2025</p>
+      <p><strong>Comportamiento con personas:</strong> Muy amigable y juguetón.</p>
+      <p><strong>Se llevó a veterinaria o refugio:</strong> Clínica Veterinaria Central, contacto: vetcentral@email.com</p>
+      <p><strong>Bajo cuidado temporal de:</strong> María López, contacto: maria.lopez@email.com</p>
+    </div>
+    <div class="post-contact">Contacto: maria.lopez@email.com - Tel: 987-654-3210</div>
+  </div>
+</article>
+<article class="post-card" tabindex="0" aria-label="Post de gato encontrado llamado Misu">
+  <img src="https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?auto=format&fit=crop&w=700&q=80" alt="Foto de gato encontrado llamado Misu" />
+  <div class="post-body">
+    <h2 class="post-title">Misu</h2>
+    <div class="post-subtitle">Gato - Siames</div>
+    <div class="post-text">
+      <p><strong>Color y tamaño:</strong> Blanco con manchas grises, tamaño pequeño.</p>
+      <p><strong>Lugar exacto donde se encontró:</strong> Calle 5, Barrio Centro.</p>
+      <p><strong>Condición al momento del hallazgo:</strong> Limpio, sin collar, parecía desnutrido.</p>
+      <p><strong>Fecha encontrada:</strong> 12 de octubre de 2025</p>
+      <p><strong>Comportamiento con personas:</strong> Muy amigable y juguetón.</p>
+      <p><strong>Se llevó a veterinaria o refugio:</strong> Clínica Veterinaria Central, contacto: vetcentral@email.com</p>
+      <p><strong>Bajo cuidado temporal de:</strong> María López, contacto: maria.lopez@email.com</p>
+    </div>
+    <div class="post-contact">Contacto: maria.lopez@email.com - Tel: 987-654-3210</div>
+  </div>
+</article>
+    </div>
+  </section>
+
+  <script>
+    // Alternar pestañas
+    const tabs = document.querySelectorAll('.tab-btn');
+    const contents = document.querySelectorAll('.tab-content');
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => {
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        contents.forEach(c => c.classList.remove('active'));
+
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        const panel = document.getElementById(tab.getAttribute('aria-controls'));
+        panel.classList.add('active');
+      });
+    });
+
+    // Mostrar / ocultar formularios
+    const btnFormPerdido = document.getElementById('mostrar-form-perdido');
+    const formPerdido = document.getElementById('form-publicar-perdido');
+
+    btnFormPerdido.addEventListener('click', () => {
+      formPerdido.classList.toggle('active');
+      if(formPerdido.classList.contains('active')) {
+        btnFormPerdido.textContent = "✖️ Cancelar publicación";
+        // Scroll al formulario
+        formPerdido.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        btnFormPerdido.textContent = "📢 Publicar perro perdido";
+      }
+    });
+
+    const btnFormEncontrado = document.getElementById('mostrar-form-encontrado');
+    const formEncontrado = document.getElementById('form-publicar-encontrado');
+
+    btnFormEncontrado.addEventListener('click', () => {
+      formEncontrado.classList.toggle('active');
+      if(formEncontrado.classList.contains('active')) {
+        btnFormEncontrado.textContent = "✖️ Cancelar publicación";
+        formEncontrado.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        btnFormEncontrado.textContent = "📢 Publicar animal encontrado";
+      }
+    });
+
+
+
+
+    // agregar funcionalidad para filtrar posts o enviar formularios
+  </script>
+  <script src="js/login.js"></script>
+  <script src="js/carousel.js"></script>
+</body>
+</html>
